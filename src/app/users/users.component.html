@@ -1,0 +1,85 @@
+<head>
+    <title>Concrete :: Projeto git</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <img rel="stylesheet" src=/>
+</head>
+<body id="top">
+<div id="banner"  style="background-image: url('https://lh3.googleusercontent.com/-lXvfTHWXpfk/WyjSX19tT5I/AAAAAAAABK4/b2VgIsWSPY4Pe00nD4Vjw1d8f_oS1vEBQCL0BGAYYCw/h1080/2018-06-19.png')">
+    <div class="inner">
+        <header>
+            <h1>Pesquisar no GIT</h1>
+            <input class="input-md" type="text" id="nome" [(ngModel)]="name"/>
+            <p></p>
+            <div *ngIf="!validacao" >
+                <p>Usuário não encontrado</p>
+            </div>
+        </header>
+        <a id="bt" href="#main" class="button style2 fit" (click)="getUsuarios()">Buscar</a>
+    </div>
+</div>
+
+<div id="main" *ngIf="profile">
+
+    <div class="inner">
+        <div class="thumbnails">
+            <div class="box">
+                <a class="image fit"><img src={{profile.avatar_url}} alt="" /></a>
+                <div class="inner">
+                    <h3>{{profile.name}} <small>({{profile.login}})</small></h3>
+                    <p *ngIf="profile.bio">{{profile.bio}}></p>
+                    <p  *ngIf="profile.blog"><a href="{{profile.blog}}" target="_blank">{{profile.blog}}</a></p>
+                    <p class="list-group-item" *ngIf="profile.email"><a>{{profile.email}}</a></p>
+                    <p><a href="{{profile.html_url}}" target="_blank" class="button style2 fit">View profile on github</a></p>
+                </div>
+                <p>
+                    <span class="label label-default">{{profile.followers}} Followers</span>
+                    <span class="label label-primary">Following {{profile.following}}</span>
+                    <span class="label label-success">{{profile.public_gists}} Public gists</span>
+                    <span class="label label-info">{{profile.public_repos}} Public Repos</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="inner">
+        <div class="btn-group" role="group" aria-label="First group">
+            <button type="button" class="btn btn-secondary style2 glyphicon glyphicon-triangle-top" (click)="getRepositories(-1)" ></button>
+            <button type="button" class="btn btn-secondary style2 glyphicon glyphicon-triangle-bottom" (click)="getRepositories(1)" ></button>
+        </div>
+        <div class="thumbnails">
+            <div class="box" *ngFor="let repo of repositories">
+                <div class="inner" style="height: 100%; position: relative">
+                    <h3>{{repo.name}}</h3>
+                    <p>{{repo.description}}</p>
+                    <div class="inner">&nbsp;<br></div>
+                    <a href="#detalhebox" (click)="getDetalhes(repo.full_name)" style="position: absolute;bottom: 7%;left: 5%; width: 90%;" class="button style2 fit" >Detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="detalhebox" class="thumbnails" *ngIf="detalhes">
+    <div  class="box" >
+        <div class="inner">
+            <h3>Nome: <span style="font-size: 13pt;">{{detalhes.name}}</span></h3>
+            <h3>Detalhes: <span style="font-size: 13pt;">{{detalhes.description}}</span></h3>
+            <h3>Linguagem: <span style="font-size: 13pt;">{{detalhes.language}}</span></h3>
+            <h3>Estrelas: <span style="font-size: 13pt;">{{detalhes.stargazers_count}}</span></h3>
+            <a href="{{detalhes.html_url}}" target="_blank" class="button style2 fit" >View this project on github</a>
+        </div>
+    </div>
+</div>
+
+<footer id="footer">
+    <div class="inner">
+        <h2>Concrete</h2>
+        <p>Projeto Git - Pesquisa e detalhamento de usuários/repositórios.</p>
+        <p class="copyright">&copy;2018. Developed by <a href="#">Daniel Nakagawa</a>.</p>
+    </div>
+</footer>
+
+</body>
+
+
